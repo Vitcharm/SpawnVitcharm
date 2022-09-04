@@ -3,12 +3,18 @@ var roleUpgrader = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
-        if (creep.store.getFreeCapacity() > 0) {
-            creep.say('💰 harvest');
-            this.harvest(creep);
-        } else {
-            this.upgrading(creep);
+        if(creep.memory.upgradeFlag && creep.store[RESOURCE_ENERGY] === 0) {
+            creep.memory.upgradeFlag = false;
+        }
+        if(!creep.memory.upgradeFlag && creep.store.getFreeCapacity() === 0) {
+            creep.memory.upgradeFlag = true;
+        }
+        if (creep.memory.upgradeFlag) {
             creep.say('🔝 upgrad');
+            this.upgrading(creep);
+        } else {
+            creep.say('🔄 harvest');
+            this.harvest(creep);
         }
     },
     harvest: function(creep) {
