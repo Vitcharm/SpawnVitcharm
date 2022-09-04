@@ -6,14 +6,14 @@ module.exports = function() {
 // 自定义的 Spawn 的拓展
 const SpawnExtension = {
 
-    CheckAndSpawnCreep(spawn, role, thres) {
+    CheckAndSpawnCreep(spawn, roleType) {
         var creepsInRole = _.filter(Game.creeps,
-            (creep) => creep.memory.role === role);
-        if (creepsInRole.length < thres) {
-            var newName = role + '' + creepsInRole.length;
-            console.log('Spawning new creep: ' + role + ' ' + newName);
-            spawn.spawnCreep([WORK, CARRY, MOVE], newName,
-                {memory: {role: role}});
+            (creep) => creep.memory.role === roleType.name);
+        if (creepsInRole.length < roleType.size) {
+            var newName = roleType.name + '' + creepsInRole.length;
+            console.log('Spawning new creep: ' + roleType.name + ' ' + newName);
+            spawn.spawnCreep(roleType.body, newName,
+                {memory: {role: roleType.name}});
         }
         if (spawn.spawning) {
             var spawningCreep = Game.creeps[spawn.spawning.name];

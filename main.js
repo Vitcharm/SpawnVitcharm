@@ -39,8 +39,7 @@ module.exports.loop = function() {
     }
     for (var i in CreepType) {
         // 此处可能变化的点：1.role的type数量会改变 2.每种creep的数量改变 3.分基地
-        baseSpawn.CheckAndSpawnCreep(baseSpawn, CreepType[i].name,
-            CreepType[i].size);
+        baseSpawn.CheckAndSpawnCreep(baseSpawn, CreepType[i]);
     }
 
     // Creep role play system v1.0
