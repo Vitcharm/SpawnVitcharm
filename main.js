@@ -7,24 +7,24 @@ var roleBuilder = require('role.builder');
 var CreepType = [
     {
         id: 0,
-        name: 'upgrader',
-        body: [WORK, CARRY, MOVE],
-        size: 2,
-        action: roleUpgrader,
-    },
-    {
-        id: 1,
         name: 'harvester',
         body: [WORK, CARRY, MOVE],
         size: 2,
         action: roleHarvester,
     },
     {
-        id: 2,
+        id: 1,
         name: 'builder',
         body: [WORK, CARRY, MOVE],
         size: 2,
         action: roleBuilder,
+    },
+    {
+        id: 2,
+        name: 'upgrader',
+        body: [WORK, CARRY, MOVE],
+        size: 2,
+        action: roleUpgrader,
     },
 ];
 var baseSpawn = Game.spawns['SpawnVit'];
@@ -38,18 +38,20 @@ module.exports.loop = function() {
             console.log('Clearing non-existing creep memory:', curName);
         }
     }
-    for (var i in CreepType) {
+    for (let i in CreepType) {
         // 此处可能变化的点：1.role的type数量会改变 2.每种creep的数量改变 3.分基地
-        baseSpawn.CheckAndSpawnCreep(baseSpawn, CreepType[i]);
+        var spawnRet = baseSpawn.CheckAndSpawnCreep(baseSpawn, CreepType[i]);
+        console.log("spawnRet: " + spawnRet);
     }
 
     // Creep role play system v1.0
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];
-
-        for (var index in CreepType) {
-            if (creep.memory.role === CreepType[i].name) {
-                CreepType[i].action.run(creep);
+        console.log(name);
+        for (let index in CreepType) {
+            console.log(index);
+            if (creep.memory.role === CreepType[index].name) {
+                CreepType[index].action.run(creep);
             }
         }
     }

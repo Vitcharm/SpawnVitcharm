@@ -9,11 +9,13 @@ const SpawnExtension = {
     CheckAndSpawnCreep(spawn, roleType) {
         var creepsInRole = _.filter(Game.creeps,
             (creep) => creep.memory.role === roleType.name);
+        var spawningRet = 0;
         if (creepsInRole.length < roleType.size) {
             var newName = roleType.name + '' + creepsInRole.length;
-            console.log('Spawning new creep: ' + roleType.name + ' ' + newName);
-            spawn.spawnCreep(roleType.body, newName,
+            spawningRet = spawn.spawnCreep(roleType.body, newName,
                 {memory: {role: roleType.name}});
+            console.log('Spawning new creep: ' + roleType.name + ' ' + newName +
+                ' ret: ' + spawningRet);
         }
         if (spawn.spawning) {
             var spawningCreep = Game.creeps[spawn.spawning.name];
@@ -24,5 +26,6 @@ const SpawnExtension = {
                     opacity: 0.8,
                 });
         }
+        return spawningRet;
     },
 };
