@@ -4,29 +4,30 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 
-var SPAWN_NAME = 'SpawnVit';
 var CreepType = [
     {
         id: 0,
         name: 'upgrader',
         body: [WORK, CARRY, MOVE],
         size: 2,
+        action: roleUpgrader,
     },
     {
         id: 1,
         name: 'harvester',
         body: [WORK, CARRY, MOVE],
         size: 2,
+        action: roleHarvester,
     },
     {
         id: 2,
         name: 'builder',
         body: [WORK, CARRY, MOVE],
         size: 2,
+        action: roleBuilder,
     },
 ];
-
-var baseSpawn = Game.spawns[SPAWN_NAME];
+var baseSpawn = Game.spawns['SpawnVit'];
 
 module.exports.loop = function() {
 
@@ -45,14 +46,11 @@ module.exports.loop = function() {
     // Creep role play system v1.0
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];
-        if (creep.memory.role === CreepType[0].name) {
-            roleUpgrader.run(creep);
-        }
-        if (creep.memory.role === CreepType[1].name) {
-            roleHarvester.run(creep);
-        }
-        if (creep.memory.role === CreepType[2].name) {
-            roleBuilder.run(creep);
+
+        for (var index in CreepType) {
+            if (creep.memory.role === CreepType[i].name) {
+                CreepType[i].action.run(creep);
+            }
         }
     }
 };
