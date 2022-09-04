@@ -10,7 +10,8 @@ const SpawnExtension = {
         var creepsInRole = _.filter(Game.creeps,
             (creep) => creep.memory.role === roleType.name);
         var spawningRet = 0;
-        if (creepsInRole.length < roleType.size) {
+        if (creepsInRole.length < roleType.size &&
+            spawn.store[RESOURCE_ENERGY] > roleType.cost) {
             var newName = roleType.name + '' + creepsInRole.length;
             spawningRet = spawn.spawnCreep(roleType.body, newName,
                 {memory: {role: roleType.name}});

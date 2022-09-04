@@ -10,6 +10,7 @@ var CreepType = [
         name: 'harvester',
         body: [WORK, CARRY, MOVE],
         size: 2,
+        cost: 200,
         action: roleHarvester,
     },
     {
@@ -17,6 +18,7 @@ var CreepType = [
         name: 'builder',
         body: [WORK, CARRY, MOVE],
         size: 2,
+        cost: 200,
         action: roleBuilder,
     },
     {
@@ -24,6 +26,7 @@ var CreepType = [
         name: 'upgrader',
         body: [WORK, CARRY, MOVE],
         size: 2,
+        cost: 200,
         action: roleUpgrader,
     },
 ];
@@ -39,7 +42,7 @@ module.exports.loop = function() {
         }
     }
     for (let i in CreepType) {
-        // 此处可能变化的点：1.role的type数量会改变 2.每种creep的数量改变 3.分基地
+        // 此处可能变化的点：1.role的type数量会改变 2.每种creep的数量改变 3.分基地 4.重复提交问题
         var spawnRet = baseSpawn.CheckAndSpawnCreep(baseSpawn, CreepType[i]);
         console.log("spawnRet: " + spawnRet);
     }
@@ -47,9 +50,7 @@ module.exports.loop = function() {
     // Creep role play system v1.0
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];
-        console.log(name);
         for (let index in CreepType) {
-            console.log(index);
             if (creep.memory.role === CreepType[index].name) {
                 CreepType[index].action.run(creep);
             }
