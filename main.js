@@ -42,9 +42,9 @@ module.exports.loop = function() {
         }
     }
     for (let i in CreepType) {
-        // 此处可能变化的点：1.role的type数量会改变 2.每种creep的数量改变 3.分基地 4.重复提交问题
+        // 此处可能变化的点：1.分基地 2.重复提交问题
         var spawnRet = baseSpawn.CheckAndSpawnCreep(baseSpawn, CreepType[i]);
-        if (spawnRet === OK) {
+        if (spawnRet !== OK) {
             console.log("spawnRet: " + spawnRet);
         }
     }
