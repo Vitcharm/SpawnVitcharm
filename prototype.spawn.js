@@ -1,3 +1,4 @@
+'use strict';
 // 将拓展签入 Spawn 原型
 module.exports = function() {
     _.assign(Spawn.prototype, SpawnExtension);
@@ -11,12 +12,16 @@ const SpawnExtension = {
             (creep) => creep.memory.role === roleType.name);
         var spawningRet = 0;
         if (creepsInRole.length < roleType.size &&
-            spawn.store[RESOURCE_ENERGY] > roleType.cost) {
-            var newName = roleType.name + '' + creepsInRole.length;
+            spawn.store[RESOURCE_ENERGY] > roleType.cost && !spawn.spawning) {
+            if (!Memory.myCreepNameCounter) Memory.myCreepNameCounter = 0;
+            var newName = roleType.name + '' + Memory.myCreepNameCounter;
             spawningRet = spawn.spawnCreep(roleType.body, newName,
                 {memory: {role: roleType.name}});
-            console.log('Spawning new creep: ' + roleType.name + ' ' + newName +
-                ' ret: ' + spawningRet);
+            if (spawningRet === 0) {
+                Memory.creepNameCounter++;
+                console.log('Spawning new creep: ' + roleType.name + ' ' + newName +
+                    ' ret: ' + spawningRet);
+            }
         }
         if (spawn.spawning) {
             var spawningCreep = Game.creeps[spawn.spawning.name];

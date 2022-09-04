@@ -1,3 +1,4 @@
+'use strict';
 const mountSpawn = require('prototype.spawn');
 // const mountFlag = require('./mount.flag')
 // const mountRoom = require('./mount.room')
