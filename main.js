@@ -11,9 +11,12 @@ module.exports.loop = function() {
             let curRoleType = RoleTypeMap.get(Memory.creeps[curName].role);
             let creepsInType = _.filter(Game.creeps,
                 (creep) => creep.memory.role === curRoleType.name);
-            if (creepsInType.length > curRoleType.size) break;
-            baseSpawn.addSpawnTask(
-                curRoleType);
+            if (creepsInType.length >= curRoleType.size) {
+                delete Memory.creeps[curName];
+                break;
+            }
+            console.log('spawn list size: ', baseSpawn.addSpawnTask(
+                curRoleType));
             delete Memory.creeps[curName];
         }
     }
