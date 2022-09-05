@@ -1,8 +1,8 @@
 'use strict';
 require('prototype.all')();
-var roleHarvester = require('role.harvester');
-var roleUpgrader = require('role.upgrader');
-var roleBuilder = require('role.builder');
+const roleHarvester = require('role.harvester');
+const roleUpgrader = require('role.upgrader');
+const roleBuilder = require('role.builder');
 
 const RoleTypeList = [
     {
@@ -30,11 +30,11 @@ const RoleTypeList = [
         action: roleUpgrader,
     },
 ];
-var RoleTypeMap = new Map();
+const RoleTypeMap = new Map();
 for (let i in RoleTypeList) {
     RoleTypeMap.set(RoleTypeList[i].name, RoleTypeList[i]);
 }
-var baseSpawn = Game.spawns['SpawnVit'];
+const baseSpawn = Game.spawns['SpawnVit'];
 
 module.exports.loop = function() {
 
