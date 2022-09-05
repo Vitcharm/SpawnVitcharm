@@ -8,7 +8,7 @@ module.exports = function() {
 const SpawnExtension = {
 
     initSpawnTask(roleMap) {
-        console.log("Init");
+        console.log('Init');
         Memory.spawnList = [];
         roleMap.forEach(function(typeValue) {
             for (let i = 0; i < typeValue.size; i++) {
@@ -18,11 +18,11 @@ const SpawnExtension = {
         console.log('Init done, spawnList size:', Memory.spawnList.length);
     },
 
-    checkSpawnTask(spawn) {
-        if (spawn.spawning ||
+    checkSpawnTask() {
+        if (this.spawning ||
             !Memory.spawnList ||
             Memory.spawnList.length === 0) return;
-        const spawnOk = this.mainSpawn(spawn, Memory.spawnList[0]);
+        const spawnOk = this.mainSpawn(Memory.spawnList[0]);
         if (spawnOk === OK) Memory.spawnList.shift();
     },
 
@@ -31,10 +31,10 @@ const SpawnExtension = {
         return Memory.spawnList.length;
     },
 
-    mainSpawn(spawn, roleType) {
+    mainSpawn(roleType) {
         if (!Memory.creepNameCounter) Memory.creepNameCounter = 0;
         let newName = roleType.name + Memory.creepNameCounter;
-        let spawningRet = spawn.spawnCreep(roleType.body, newName,
+        let spawningRet = this.spawnCreep(roleType.body, newName,
             {memory: {role: roleType.name}});
         if (spawningRet === OK) {
             Memory.creepNameCounter++;
@@ -42,7 +42,18 @@ const SpawnExtension = {
                 'Spawning new creep:' + roleType.name + ' name:' + newName +
                 ' ret:' + spawningRet);
         }
-
         return spawningRet;
+    },
+
+    vizSpawning() {
+        if (this.spawning) {
+            var spawningCreep = Game.creeps[this.spawning.name];
+            this.room.visual.text(
+                '🛠️' + spawningCreep.memory.role,
+                this.pos.x + 1, this.pos.y, {
+                    align: 'left',
+                    opacity: 0.8,
+                });
+        }
     },
 };

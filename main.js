@@ -46,16 +46,8 @@ module.exports.loop = function() {
             delete Memory.creeps[curName];
         }
     }
-    baseSpawn.checkSpawnTask(baseSpawn);
-    if (baseSpawn.spawning) {
-        var spawningCreep = Game.creeps[baseSpawn.spawning.name];
-        baseSpawn.room.visual.text(
-            '🛠️' + spawningCreep.memory.role,
-            baseSpawn.pos.x + 1, baseSpawn.pos.y, {
-                align: 'left',
-                opacity: 0.8,
-            });
-    }
+    baseSpawn.checkSpawnTask();
+    baseSpawn.vizSpawning();
 
     /** Creep role work system v2.0 **/
     for (let name in Game.creeps) {
