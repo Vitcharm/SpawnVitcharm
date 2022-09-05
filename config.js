@@ -2,6 +2,7 @@
 const roleHarvester = require('role.harvester');
 const roleUpgrader = require('role.upgrader');
 const roleBuilder = require('role.builder');
+
 global.RoleTypeList = [
     {
         id: 0,
@@ -33,3 +34,4 @@ for (let i in RoleTypeList) {
     RoleTypeMap.set(RoleTypeList[i].name, RoleTypeList[i]);
 }
 global.baseSpawn = Game.spawns['SpawnVit'];
+global.SPAWN_STORE_RESERVE_RATIO = 0.8;
