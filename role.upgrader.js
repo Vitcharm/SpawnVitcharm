@@ -13,14 +13,15 @@ var roleUpgrader = {
             creep.say('🔝 upgrad');
             this.upgrading(creep);
         } else {
-            creep.say('🔄 take');
+            creep.say('💰 take');
             this.takeEnergy(creep);
         }
     },
     takeEnergy: function(creep) {
         const containers = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
-                return structure.structureType === STRUCTURE_CONTAINER;
+                return (structure.structureType === STRUCTURE_CONTAINER ||
+                    structure.structureType === STRUCTURE_EXTENSION);
             },
         });
         if (creep.withdraw(containers[0], RESOURCE_ENERGY) ===

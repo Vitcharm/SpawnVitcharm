@@ -1,3 +1,4 @@
+'use strict';
 var roleBuilder = {
 
     /** @param {Creep} creep **/
@@ -10,18 +11,19 @@ var roleBuilder = {
         }
 
         if (creep.memory.building) {
-            this.repairing(creep);
             this.building(creep);
+            this.repairing(creep);
             creep.say('🚧 build');
         } else {
-            creep.say('🔄 take');
+            creep.say('💰 take');
             this.takeEnergy(creep);
         }
     },
     takeEnergy: function(creep) {
         const containers = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
-                return structure.structureType === STRUCTURE_CONTAINER;
+                return (structure.structureType === STRUCTURE_CONTAINER ||
+                    structure.structureType === STRUCTURE_EXTENSION);
             },
         });
         if (creep.withdraw(containers[0], RESOURCE_ENERGY) ===
@@ -41,7 +43,7 @@ var roleBuilder = {
     },
     repairing: function(creep) {
         const targets = creep.room.find(FIND_STRUCTURES, {
-            filter: object => object.hits < object.hitsMax,
+            filter: object => object.hits < object.hitsMax * 0.8,
         });
         targets.sort((a, b) => a.hits - b.hits);
         if (targets.length > 0) {
