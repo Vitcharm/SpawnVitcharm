@@ -23,7 +23,8 @@ var roleBuilder = {
         const containers = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
                 return (structure.structureType === STRUCTURE_CONTAINER ||
-                    structure.structureType === STRUCTURE_EXTENSION);
+                    structure.structureType === STRUCTURE_EXTENSION ||
+                    structure.structureType === STRUCTURE_SPAWN);
             },
         });
         if (creep.withdraw(containers[0], RESOURCE_ENERGY) ===

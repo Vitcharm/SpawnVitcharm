@@ -7,32 +7,42 @@ module.exports = function() {
 // 自定义的 Spawn 的拓展
 const SpawnExtension = {
 
-    CheckAndSpawnCreep(spawn, roleType) {
-        var creepsInRole = _.filter(Game.creeps,
-            (creep) => creep.memory.role === roleType.name);
-        var spawningRet = 0;
-        if (creepsInRole.length < roleType.size &&
-            spawn.store[RESOURCE_ENERGY] > roleType.cost && !spawn.spawning) {
-            if (!Memory.creepNameCounter) Memory.creepNameCounter = 0;
-            var newName = roleType.name + '' + Memory.creepNameCounter;
-            console.log(newName);
-            spawningRet = spawn.spawnCreep(roleType.body, newName,
-                {memory: {role: roleType.name}});
-            if (spawningRet === 0) {
-                Memory.creepNameCounter++;
-                console.log('Spawning new creep: ' + roleType.name + ' ' + newName +
-                    ' ret: ' + spawningRet);
+    initSpawnTask(roleMap) {
+        console.log("Init");
+        Memory.spawnList = [];
+        roleMap.forEach(function(typeValue) {
+            for (let i = 0; i < typeValue.size; i++) {
+                Memory.spawnList.push(typeValue);
             }
+        });
+        console.log('Init done, spawnList size:', Memory.spawnList.length);
+    },
+
+    checkSpawnTask(spawn) {
+        if (spawn.spawning ||
+            !Memory.spawnList ||
+            Memory.spawnList.length === 0) return;
+        const spawnOk = this.mainSpawn(spawn, Memory.spawnList[0]);
+        if (spawnOk === OK) Memory.spawnList.shift();
+    },
+
+    addSpawnTask(roleType) {
+        Memory.spawnList.push(roleType);
+        return Memory.spawnList.length;
+    },
+
+    mainSpawn(spawn, roleType) {
+        if (!Memory.creepNameCounter) Memory.creepNameCounter = 0;
+        let newName = roleType.name + Memory.creepNameCounter;
+        let spawningRet = spawn.spawnCreep(roleType.body, newName,
+            {memory: {role: roleType.name}});
+        if (spawningRet === OK) {
+            Memory.creepNameCounter++;
+            console.log(
+                'Spawning new creep:' + roleType.name + ' name:' + newName +
+                ' ret:' + spawningRet);
         }
-        if (spawn.spawning) {
-            var spawningCreep = Game.creeps[spawn.spawning.name];
-            spawn.room.visual.text(
-                '🛠️' + spawningCreep.memory.role,
-                spawn.pos.x + 1, spawn.pos.y, {
-                    align: 'left',
-                    opacity: 0.8,
-                });
-        }
+
         return spawningRet;
     },
 };
