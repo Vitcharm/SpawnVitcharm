@@ -8,8 +8,12 @@ module.exports.loop = function() {
     if (!Memory.spawnList) baseSpawn.initSpawnTask(RoleTypeMap);
     for (const curName in Memory.creeps) {
         if (!Game.creeps[curName]) {
+            let curRoleType = RoleTypeMap.get(Memory.creeps[curName].role);
+            let creepsInType = _.filter(Game.creeps,
+                (creep) => creep.memory.role === curRoleType.name);
+            if (creepsInType.length > curRoleType.size) break;
             baseSpawn.addSpawnTask(
-                RoleTypeMap.get(Memory.creeps[curName].role));
+                curRoleType);
             delete Memory.creeps[curName];
         }
     }
