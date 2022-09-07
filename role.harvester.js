@@ -1,49 +1,18 @@
 'use strict';
-var roleHarvester = {
-
-    /** @param {Creep} creep **/
-    run: function(creep) {
-        if (creep.store.getFreeCapacity() > 0) {
-            creep.say('💰 harvest');
-            this.harvest(creep);
-        } else {
-            this.deliver(creep);
-            creep.say('🔄 deliver');
-        }
-    },
-
-    harvest: function(creep) {
+module.exports = sourceId => ({
+    takeSource: creep => {
         var sources = creep.room.find(FIND_SOURCES);
+        creep.say('💰harvest');
         if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
             creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
         }
     },
 
-    // 待优化提取地点查找部分
-    deliver: function(creep) {
-        var targets = creep.room.find(FIND_STRUCTURES, {
-            filter: (structure) => {
-                return (structure.structureType === STRUCTURE_EXTENSION ||
-                        structure.structureType === STRUCTURE_SPAWN ||
-                        structure.structureType === STRUCTURE_CONTAINER) &&
-                    structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-            },
-        });
-        if (targets.length > 0) {
-            if (creep.transfer(targets[0], RESOURCE_ENERGY) ===
-                ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0],
-                    {visualizePathStyle: {stroke: '#ffffff'}});
-            }
-        } else {
-            // 回基地待命
-            var tarSpawn = creep.room.find(FIND_STRUCTURES, {
-                filter: (structure) => {
-                    return structure.structureType === STRUCTURE_SPAWN;
-                },
-            });
-            creep.moveTo(tarSpawn[0]);
+    performDuty: creep => {
+        var targets = Game.getObjectById(sourceId);
+        creep.say('🔄 deliver');
+        if (creep.transfer(targets, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(targets, {visualizePathStyle: {stroke: '#ffffff'}});
         }
     },
-};
-module.exports = roleHarvester;
+});

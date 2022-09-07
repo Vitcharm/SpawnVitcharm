@@ -1,42 +1,33 @@
 'use strict';
-var roleBuilder = {
+module.exports = sourceId => ({
 
-    /** @param {Creep} creep **/
-    run: function(creep) {
-        if (creep.memory.building && creep.store[RESOURCE_ENERGY] === 0) {
-            creep.memory.building = false;
-        }
-        if (!creep.memory.building && creep.store.getFreeCapacity() === 0) {
-            creep.memory.building = true;
-        }
-
-        if (creep.memory.building) {
-            this.building(creep);
-            this.repairing(creep);
-            creep.say('🚧 build');
+    takeSource: creep => {
+        const sourcePlaceObj = Game.getObjectById(sourceId);
+        // dummy method to distinguish source or store;
+        if (sourcePlaceObj.energy) {
+            creep.say('💰harvest');
+            if (creep.harvest(sourcePlaceObj) === ERR_NOT_IN_RANGE) {
+                creep.moveTo(sourcePlaceObj,
+                    {visualizePathStyle: {stroke: '#ffaa00'}});
+            }
         } else {
-            creep.say('💰 take');
-            this.takeEnergy(creep);
+            creep.say('💰take');
+            if (creep.withdraw(sourcePlaceObj, RESOURCE_ENERGY) ===
+                ERR_NOT_IN_RANGE) {
+                creep.moveTo(sourcePlaceObj,
+                    {visualizePathStyle: {stroke: '#ffaa00'}});
+            }
         }
+        // 自己身上的能量装满了，返回 true（切换至 performDuty 阶段）
+        return creep.store.getFreeCapacity() <= 0;
     },
-    takeEnergy: function(creep) {
-        const containers = creep.room.find(FIND_STRUCTURES, {
-            filter: (structure) => {
-                return (structure.structureType === STRUCTURE_CONTAINER ||
-                    (structure.structureType === STRUCTURE_SPAWN &&
-                        structure.store.getUsedCapacity() >
-                        structure.store.getCapacity() *
-                        SPAWN_STORE_RESERVE_RATIO)
-                );
-            },
-        });
-        if (creep.withdraw(containers[0], RESOURCE_ENERGY) ===
-            ERR_NOT_IN_RANGE) {
-            creep.moveTo(containers[0],
-                {visualizePathStyle: {stroke: '#ffaa00'}});
-        }
+    performDuty: creep => {
+        this.building(creep);
+        this.repairing(creep);
+        return creep.store[RESOURCE_ENERGY] <= 0;
     },
     building: function(creep) {
+        creep.say('🚧build');
         var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
         if (targets.length) {
             if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
@@ -46,8 +37,9 @@ var roleBuilder = {
         }
     },
     repairing: function(creep) {
+        creep.say('🚧repair');
         const targets = creep.room.find(FIND_STRUCTURES, {
-            filter: object => object.hits < object.hitsMax * 0.8,
+            filter: object => object.hits < object.hitsMax * REPAIR_RATIO,
         });
         targets.sort((a, b) => a.hits - b.hits);
         if (targets.length > 0) {
@@ -56,6 +48,6 @@ var roleBuilder = {
             }
         }
     },
-};
+});
 
 module.exports = roleBuilder;

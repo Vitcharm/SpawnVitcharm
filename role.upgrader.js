@@ -1,45 +1,41 @@
 'use strict';
-var roleUpgrader = {
-
-    /** @param {Creep} creep **/
-    run: function(creep) {
-        if (creep.memory.upgradeFlag && creep.store[RESOURCE_ENERGY] === 0) {
-            creep.memory.upgradeFlag = false;
-        }
-        if (!creep.memory.upgradeFlag && creep.store.getFreeCapacity() === 0) {
-            creep.memory.upgradeFlag = true;
-        }
-        if (creep.memory.upgradeFlag) {
-            creep.say('🔝 upgrad');
-            this.upgrading(creep);
+/**
+ * 升级者配置生成器
+ * takeSource: 从指定矿/存储建筑中取能量
+ * performDuty: 执行指定任务
+ *
+ * @param sourceId 要提取能量的建筑id
+ */
+module.exports = sourceId => ({
+    takeSource: creep => {
+        const sourcePlaceObj = Game.getObjectById(sourceId);
+        // dummy method to distinguish source or store;
+        if (sourcePlaceObj.energy) {
+            creep.say('💰harvest');
+            if (creep.harvest(sourcePlaceObj) === ERR_NOT_IN_RANGE) {
+                creep.moveTo(sourcePlaceObj,
+                    {visualizePathStyle: {stroke: '#ffaa00'}});
+            }
         } else {
-            creep.say('💰 take');
-            this.takeEnergy(creep);
+            creep.say('💰take');
+            if (creep.withdraw(sourcePlaceObj, RESOURCE_ENERGY) ===
+                ERR_NOT_IN_RANGE) {
+                creep.moveTo(sourcePlaceObj,
+                    {visualizePathStyle: {stroke: '#ffaa00'}});
+            }
         }
+        // 自己身上的能量装满了，返回 true（切换至 performDuty 阶段）
+        return creep.store.getFreeCapacity() <= 0;
     },
-    takeEnergy: function(creep) {
-        const containers = creep.room.find(FIND_STRUCTURES, {
-            filter: (structure) => {
-                return (structure.structureType === STRUCTURE_CONTAINER ||
-                    (structure.structureType === STRUCTURE_SPAWN &&
-                        structure.store.getUsedCapacity() >
-                        structure.store.getCapacity() *
-                        SPAWN_STORE_RESERVE_RATIO)
-                );
-            },
-        });
-        if (creep.withdraw(containers[0], RESOURCE_ENERGY) ===
+    performDuty: creep => {
+        const controller = creep.room.controller;
+        if (creep.upgradeController(controller) ===
             ERR_NOT_IN_RANGE) {
-            creep.moveTo(containers[0],
+            creep.say('🚧upgrad');
+            creep.moveTo(controller,
                 {visualizePathStyle: {stroke: '#ffaa00'}});
         }
+        // 自己身上的能量没有了，返回 true（切换至 source 阶段）
+        return creep.store[RESOURCE_ENERGY] <= 0;
     },
-    upgrading: function(creep) {
-        if (creep.upgradeController(creep.room.controller) ===
-            ERR_NOT_IN_RANGE) {
-            creep.moveTo(creep.room.controller);
-        }
-    },
-};
-
-module.exports = roleUpgrader;
+});

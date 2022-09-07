@@ -24,9 +24,6 @@ module.exports.loop = function() {
     baseSpawn.vizSpawning();
 
     /** Creep role work system v2.0 **/
-    for (let name in Game.creeps) {
-        let creep = Game.creeps[name];
-        RoleTypeMap.get(creep.memory.role).action.run(creep);
-    }
+    Object.values(Game.creeps).forEach(creep => creep.work());
 };
 
