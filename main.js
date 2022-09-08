@@ -1,6 +1,7 @@
 'use strict';
 require('prototype.all')();
 require('config');
+require('creepApi');
 
 module.exports.loop = function() {
 
@@ -10,7 +11,7 @@ module.exports.loop = function() {
         if (!Game.creeps[curName]) {
             let curRoleType = RoleTypeMap.get(Memory.creeps[curName].role);
             let creepsInType = _.filter(Game.creeps,
-                (creep) => creep.memory.role === curRoleType.name);
+                (creep) => creep.memory.role === curRoleType.role);
             if (creepsInType.length >= curRoleType.size) {
                 delete Memory.creeps[curName];
                 break;

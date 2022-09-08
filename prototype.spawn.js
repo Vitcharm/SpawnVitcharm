@@ -33,13 +33,15 @@ const SpawnExtension = {
 
     mainSpawn(roleType) {
         if (!Memory.creepNameCounter) Memory.creepNameCounter = 0;
-        let newName = roleType.name + Memory.creepNameCounter;
+        let newName = roleType.role + Memory.creepNameCounter;
         let spawningRet = this.spawnCreep(roleType.body, newName,
-            {memory: {role: roleType.name}});
+            {memory: {role: roleType.role, configName: roleType.configName}});
         if (spawningRet === OK) {
             Memory.creepNameCounter++;
+            creepApi.add(roleType.configName, roleType.role,
+                roleType.targetSite);
             console.log(
-                'Spawning new creep:' + roleType.name + ' name:' + newName +
+                'Spawning new creep:' + roleType.role + ' name:' + newName +
                 ' ret:' + spawningRet);
         }
         return spawningRet;

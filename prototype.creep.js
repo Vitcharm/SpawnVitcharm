@@ -10,7 +10,7 @@ module.exports = function() {
 const roles = {
     harvester: require('role.harvester'),
     builder: require('role.builder'),
-    upgrader: require('role.upgrader.js'),
+    upgrader: require('role.upgrader'),
 };
 const CreepExtension = {
     // 添加 work 方法
