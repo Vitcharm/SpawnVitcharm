@@ -1,37 +1,53 @@
 'use strict';
 global.baseSpawn = Game.spawns['SpawnVit'];
-global.SITE_SOURCES = ['84307db01394a36247a65a99', 'ae5953e84bc50b4efcc4f183'];
+global.SITE_SOURCES = ['1e2689b842e73b9df00beea8', '43c838a32b2ef754181907d2'];
 global.SITE_CONTAINERS = ['1', '2'];
 global.SITE_EXTENSIONS = ['1', '2'];
 global.SITE_STORAGE = ['1', '2'];
-global.REPAIR_RATIO = 0.8;
+global.REPAIR_RATIO = 0.9;
 global.RoleTypeList = [
     {
         role: 'harvester',
-        body: [WORK, CARRY, MOVE],
-        size: 3,
-        cost: 200,
-        targetSite: SITE_SOURCES[0],
         configName: 'har_Lv0_ALPHA',
+        size: 2,
+        body: [WORK, CARRY, MOVE],
+        cost: 200,
+        targetSite: baseSpawn.id,
     },
     {
         role: 'builder',
-        body: [WORK, CARRY, MOVE],
-        size: 0,
-        cost: 200,
-        targetSite: SITE_SOURCES[1],
         configName: 'bui_Lv0_ALPHA',
+        size: 1,
+        body: [WORK, CARRY, MOVE],
+        cost: 200,
+        targetSite: SITE_SOURCES[0],
+    },
+    {
+        role: 'builder',
+        configName: 'bui_Lv0_BETA',
+        size: 1,
+        body: [WORK, CARRY, MOVE],
+        cost: 200,
+        targetSite: baseSpawn.id,
+    },
+    {
+        role: 'upgrader',
+        configName: 'upg_Lv0_ALPHA',
+        size: 1,
+        body: [WORK, CARRY, MOVE],
+        cost: 200,
+        targetSite: SITE_SOURCES[0],
     },
     {
         role: 'upgrader',
         body: [WORK, CARRY, MOVE],
-        size: 1,
+        size: 2,
         cost: 200,
-        targetSite: SITE_SOURCES[1],
-        configName: 'upg_Lv0_ALPHA',
+        targetSite: baseSpawn.id,
+        configName: 'upg_Lv0_BETA',
     },
 ];
 global.RoleTypeMap = new Map();
 for (let i in RoleTypeList) {
-    RoleTypeMap.set(RoleTypeList[i].role, RoleTypeList[i]);
+    RoleTypeMap.set(RoleTypeList[i].configName, RoleTypeList[i]);
 }

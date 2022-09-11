@@ -8,7 +8,7 @@ module.exports = function() {
 const SpawnExtension = {
 
     initSpawnTask(roleMap) {
-        console.log('Init');
+        console.log('Init Spawn Task');
         Memory.spawnList = [];
         roleMap.forEach(function(typeValue) {
             for (let i = 0; i < typeValue.size; i++) {

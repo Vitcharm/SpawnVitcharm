@@ -5,7 +5,7 @@ const mountCreep = require('prototype.creep');
 
 // 挂载所有的额外属性和方法
 module.exports = function() {
-    console.log('[mount] 重新挂载拓展');
+    // console.log('[mount] 重新挂载拓展');
     mountSpawn();
     mountCreep();
     // mountRoom()
