@@ -39,7 +39,7 @@ module.exports = sourceId => ({
             const targets = creep.room.find(FIND_MY_STRUCTURES, {
                 filter: object => object.hits < object.hitsMax * REPAIR_RATIO,
             });
-            targets.sort((a, b) => a.hits - b.hits);
+            targets.sort((a, b) => b.hits - a.hits);
             if (targets.length > 0) {
                 if (creep.repair(targets[0]) === ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0]);
@@ -47,8 +47,8 @@ module.exports = sourceId => ({
             }
         }
 
-        building(creep);
-        // repairing(creep);
+        // building(creep);
+        repairing(creep);
         return creep.store[RESOURCE_ENERGY] <= 0;
     },
 });

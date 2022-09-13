@@ -49,7 +49,7 @@ global.RoleTypeList = [
     {
         role: 'builder',
         configName: 'bui_Lv0_BETA',
-        size: 0,
+        size: 2,
         body: [WORK, CARRY, MOVE],
         cost: 200,
         targetSite: baseSpawn.id,
