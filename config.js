@@ -2,7 +2,7 @@
 global.baseSpawn = Game.spawns['Spawn'];
 global.SITE_SOURCES = ['5bbcaf909099fc012e63ac7e', '5bbcaf909099fc012e63ac7f'];
 global.SITE_CONTAINERS = ['1', '2'];
-global.SITE_EXTENSIONS = ['1', '2'];
+global.SITE_EXTENSIONS = ['63209e5186a36d264af1b441', '2'];
 global.SITE_STORAGE = ['1', '2'];
 global.REPAIR_RATIO = 0.9;
 global.RoleTypeList = [
@@ -53,6 +53,22 @@ global.RoleTypeList = [
         body: [WORK, CARRY, MOVE],
         cost: 200,
         targetSite: baseSpawn.id,
+    },
+    {
+        role: 'carrier',
+        configName: 'car_Lv0',
+        size: 1,
+        body: [CARRY, CARRY, MOVE],
+        cost: 150,
+        targetSite: baseSpawn.id,
+    },
+    {
+        role: 'harvester',
+        configName: 'har_Lv1_ALPHA',
+        size: 1,
+        body: [WORK, WORK, CARRY, MOVE, MOVE],
+        cost: 350,
+        targetSite: SITE_SOURCES[0],
     },
 ];
 global.RoleTypeMap = new Map();

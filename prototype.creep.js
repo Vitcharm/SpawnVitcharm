@@ -11,6 +11,7 @@ const roles = {
     harvester: require('role.harvester'),
     builder: require('role.builder'),
     upgrader: require('role.upgrader'),
+    carrier: require('role.carrier'),
 };
 const CreepExtension = {
     // 添加 work 方法
