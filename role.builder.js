@@ -47,7 +47,7 @@ module.exports = sourceId => ({
             }
         }
 
-        // building(creep);
+        building(creep);
         repairing(creep);
         return creep.store[RESOURCE_ENERGY] <= 0;
     },
