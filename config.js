@@ -12,7 +12,15 @@ global.RoleTypeList = [
         size: 3,
         body: [WORK, CARRY, MOVE],
         cost: 200,
-        targetSite: baseSpawn.id,
+        targetSite: SITE_SOURCES[0],
+    },
+    {
+        role: 'harvester',
+        configName: 'har_Lv0_BETA',
+        size: 1,
+        body: [WORK, CARRY, MOVE],
+        cost: 200,
+        targetSite: SITE_SOURCES[1],
     },
     {
         role: 'upgrader',
@@ -25,7 +33,7 @@ global.RoleTypeList = [
     {
         role: 'upgrader',
         body: [WORK, CARRY, MOVE],
-        size: 2,
+        size: 1,
         cost: 200,
         targetSite: baseSpawn.id,
         configName: 'upg_Lv0_BETA',

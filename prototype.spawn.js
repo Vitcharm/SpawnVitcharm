@@ -11,7 +11,7 @@ const SpawnExtension = {
         console.log('Init Spawn Task');
         Memory.spawnList = [];
         roleMap.forEach(function(typeValue) {
-            console.log(`creep ${typeValue.configName} 开始初始化`)
+            console.log(`creep ${typeValue.configName} 开始初始化`);
             for (let i = 0; i < typeValue.size; i++) {
                 Memory.spawnList.push(typeValue);
             }
@@ -22,7 +22,12 @@ const SpawnExtension = {
     checkSpawnTask() {
         if (this.spawning ||
             !Memory.spawnList ||
-            Memory.spawnList.length === 0) return;
+            Memory.spawnList.length === 0) {
+            console.log("no add spawn list");
+            console.log(this.spawning === true);
+            return;
+        }
+        console.log("ready to add spawn list");
         const spawnOk = this.mainSpawn(Memory.spawnList[0]);
         if (spawnOk === OK) Memory.spawnList.shift();
     },
@@ -37,6 +42,7 @@ const SpawnExtension = {
         let newName = roleType.role + Memory.creepNameCounter;
         let spawningRet = this.spawnCreep(roleType.body, newName,
             {memory: {role: roleType.role, configName: roleType.configName}});
+        console.log("call spawn: " + spawningRet);
         if (spawningRet === OK) {
             Memory.creepNameCounter++;
             creepApi.add(roleType.configName, roleType.role,

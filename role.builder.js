@@ -36,7 +36,7 @@ module.exports = sourceId => ({
 
         function repairing() {
             creep.say('🚧repair');
-            const targets = creep.room.find(FIND_STRUCTURES, {
+            const targets = creep.room.find(FIND_MY_STRUCTURES, {
                 filter: object => object.hits < object.hitsMax * REPAIR_RATIO,
             });
             targets.sort((a, b) => a.hits - b.hits);
