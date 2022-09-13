@@ -42,7 +42,7 @@ const SpawnExtension = {
         let newName = roleType.role + Memory.creepNameCounter;
         let spawningRet = this.spawnCreep(roleType.body, newName,
             {memory: {role: roleType.role, configName: roleType.configName}});
-        console.log("call spawn: " + spawningRet);
+        console.log("call spawn rst code: " + spawningRet);
         if (spawningRet === OK) {
             Memory.creepNameCounter++;
             creepApi.add(roleType.configName, roleType.role,
@@ -51,6 +51,7 @@ const SpawnExtension = {
                 'Spawning new creep:' + roleType.role + ' name:' + newName +
                 ' ret:' + spawningRet);
         }
+        console.log("spawn process END");
         return spawningRet;
     },
 
