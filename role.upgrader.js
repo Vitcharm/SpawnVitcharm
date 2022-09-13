@@ -10,7 +10,7 @@ module.exports = sourceId => ({
     takeSource: creep => {
         const sourcePlaceObj = Game.getObjectById(sourceId);
         // dummy method to distinguish source or store;
-        if (sourcePlaceObj.ticksToRegeneration !== undefined) {
+        if (creep.harvest(sourcePlaceObj) !== ERR_INVALID_TARGET) {
             creep.say('💰harvest');
             if (creep.harvest(sourcePlaceObj) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(sourcePlaceObj,

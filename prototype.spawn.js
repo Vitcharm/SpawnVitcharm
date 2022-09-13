@@ -11,6 +11,7 @@ const SpawnExtension = {
         console.log('Init Spawn Task');
         Memory.spawnList = [];
         roleMap.forEach(function(typeValue) {
+            console.log(`creep ${typeValue.configName} 开始初始化`)
             for (let i = 0; i < typeValue.size; i++) {
                 Memory.spawnList.push(typeValue);
             }
