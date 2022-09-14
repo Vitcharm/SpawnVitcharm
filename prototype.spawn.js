@@ -56,6 +56,7 @@ const SpawnExtension = {
         if (mockRet !== OK) {
             console.log(
                 `No launch spawning ${newName} ${roleType.configName} ${mockRet}`);
+            if (mockRet === ERR_NAME_EXISTS) Memory.creepNameCounter++;
             return mockRet;
         }
         return this.spawnCreep(roleType.body, newName,
