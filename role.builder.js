@@ -37,13 +37,14 @@ module.exports = sourceId => ({
         function repairing() {
             creep.say('🚧repair');
             const targets = creep.room.find(FIND_STRUCTURES, {
-                filter: object => object.hits < object.hitsMax * REPAIR_RATIO,
+                filter: object => (object.hits < object.hitsMax * REPAIR_RATIO),
             });
             targets.sort((a, b) => a.hits - b.hits);
-            console.log("repairing " + targets[0]);
             if (targets.length > 0) {
+                console.log('repairing ' + targets[0]);
                 if (creep.repair(targets[0]) === ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0]);
+                    creep.moveTo(targets[0],
+                        {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
         }
