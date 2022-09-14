@@ -18,14 +18,18 @@ module.exports.loop = function() {
             let creepsInType = _.filter(Game.creeps,
                 (creep) => creep.memory.configName === typeValue.configName);
             if (creepsInType.length < typeValue.size) {
-                console.log('spawn list size updated: ', baseSpawn.addSpawnTask(
-                    typeValue));
+                let updatedSize = baseSpawn.addSpawnTask(typeValue);
+                console.log(
+                    `spawn list size updated: ${updatedSize},
+                     configName:${typeValue.configName},
+                     now size ${creepsInType.length},
+                     target size ${typeValue.size}`);
             }
         });
     }
 
     baseSpawn.checkSpawnTask();
-    // baseSpawn.vizSpawning();
+    baseSpawn.vizSpawning();
 
     /** Creep role work system v2.0 **/
     Object.values(Game.creeps).forEach(creep => creep.creepWork());
