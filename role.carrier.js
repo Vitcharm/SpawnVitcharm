@@ -21,13 +21,14 @@ module.exports = sourceId => ({
         creep.say('🔄 deliver');
         if (targets.length > 0) {
             for (let i in targets) {
-                if (creep.transfer(targets[i], RESOURCE_ENERGY) ===
-                    ERR_NOT_IN_RANGE) {
+                var transRet = creep.transfer(targets[i], RESOURCE_ENERGY);
+                if (transRet === ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[i],
                         {visualizePathStyle: {stroke: '#ffffff'}});
                 }
             }
         }
-        return creep.store[RESOURCE_ENERGY] <= 0;
+        return (creep.store[RESOURCE_ENERGY] <= 0 || transRet === OK ||
+            transRet === ERR_FULL);
     },
 });

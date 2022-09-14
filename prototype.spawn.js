@@ -28,7 +28,7 @@ const SpawnExtension = {
         }
         console.log('ready to add spawn list');
         const spawnOk = this.mainSpawn(Memory.spawnList[0]);
-        console.log(`call spawn rst code: ${spawningRet}`);
+        console.log(`call spawn rst code: ${spawnOk}`);
         console.log('spawn process END');
         if (spawnOk === OK) {
             let roleType = Memory.spawnList[0];
@@ -56,7 +56,7 @@ const SpawnExtension = {
         if (mockRet !== OK) {
             console.log(
                 `No launch spawning ${newName} ${roleType.configName} ${mockRet}`);
-            return;
+            return mockRet;
         }
         return this.spawnCreep(roleType.body, newName,
             {memory: {role: roleType.role, configName: roleType.configName}});
