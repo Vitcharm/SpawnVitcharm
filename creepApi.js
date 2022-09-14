@@ -28,4 +28,20 @@ global.creepApi = {
         if (!Memory.creepConfigs) return undefined;
         return Memory.creepConfigs[configName];
     },
+    /**
+     * 一些手动操作指令
+     */
+    help() {
+        Game.spawns['Spawn'].spawnCreep([WORK, WORK, CARRY, MOVE, MOVE], 'haBak5',
+            {memory: {role: 'harvester', configName: 'har_Lv1_ALPHA'}});
+
+        Game.spawns['Spawn'].spawnCreep([CARRY, CARRY, MOVE], 'caBak4',
+            {memory: {role: 'carrier', configName: 'car_Lv0'}});
+
+        Game.spawns['Spawn'].spawnCreep([WORK, CARRY, MOVE], 'haBak5',
+            {memory: {role: 'harvester', configName: 'har_Lv0_ALPHA'}});
+
+        Game.spawns['Spawn'].spawnCreep([WORK, CARRY, MOVE], 'blBak2',
+            {memory: {role: 'builder', configName: 'bui_Lv0_ALPHA'}});
+    },
 };
