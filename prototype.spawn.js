@@ -22,14 +22,9 @@ const SpawnExtension = {
     checkSpawnTask() {
         if (Memory.spawnList.length === 0) {
             console.log('spawn list length: ' + Memory.spawnList.length);
-            console.log('spawn spawning?: ' + (this.spawning !== null) + ' ' +
-                (this.spawning.name));
             return;
         }
-        // console.log('ready to add spawn list');
         const spawnOk = this.mainSpawn(Memory.spawnList[0]);
-        // console.log(`call spawn rst code: ${spawnOk}`);
-        // console.log('spawn process END');
     },
 
     addSpawnTask(roleType) {
