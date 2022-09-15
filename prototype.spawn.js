@@ -26,13 +26,12 @@ const SpawnExtension = {
                 (this.spawning.name));
             return;
         }
-        console.log('ready to add spawn list');
+        // console.log('ready to add spawn list');
         const spawnOk = this.mainSpawn(Memory.spawnList[0]);
-        console.log(`call spawn rst code: ${spawnOk}`);
-        console.log('spawn process END');
-        if (spawnOk === OK) {
+        // console.log(`call spawn rst code: ${spawnOk}`);
+        // console.log('spawn process END');
+        if (spawnOk === 0) {
             let roleType = Memory.spawnList[0];
-            Memory.spawnList.shift();
             creepApi.add(roleType.configName, roleType.role,
                 roleType.targetSite);
             console.log(
@@ -54,13 +53,16 @@ const SpawnExtension = {
             {memory: {role: roleType.role, configName: roleType.configName}},
             {dryRun: true});
         if (mockRet !== OK) {
-            console.log(
-                `No launch spawning ${newName} ${roleType.configName} ${mockRet}`);
+            console.log(`No launch spawning ${newName} ${roleType.configName} ${mockRet}`);
             if (mockRet === ERR_NAME_EXISTS) Memory.creepNameCounter++;
             return mockRet;
         }
-        return this.spawnCreep(roleType.body, newName,
+        let spawnRet = this.spawnCreep(roleType.body, newName,
             {memory: {role: roleType.role, configName: roleType.configName}});
+        console.log(`spawn success, now size: ${Memory.spawnList.length}`);
+        Memory.spawnList.shift();
+        console.log(`update list, now size: ${Memory.spawnList.length}`);
+        return spawnRet;
     },
 
     vizSpawning() {

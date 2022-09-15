@@ -41,7 +41,7 @@ global.creepApi = {
         Game.spawns['Spawn'].spawnCreep([WORK, CARRY, MOVE], 'haBak5',
             {memory: {role: 'harvester', configName: 'har_Lv0_ALPHA'}});
 
-        Game.spawns['Spawn'].spawnCreep([WORK, CARRY, MOVE], 'blBak2',
+        Game.spawns['Spawn'].spawnCreep([WORK, CARRY, MOVE], 'blBak7',
             {memory: {role: 'builder', configName: 'bui_Lv0_ALPHA'}});
     },
 };

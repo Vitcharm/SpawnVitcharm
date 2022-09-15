@@ -29,7 +29,7 @@ module.exports.loop = function() {
     }
 
     baseSpawn.checkSpawnTask();
-    baseSpawn.vizSpawning();
+    // baseSpawn.vizSpawning();
 
     /** Creep role work system v2.0 **/
     Object.values(Game.creeps).forEach(creep => creep.creepWork());
