@@ -12,6 +12,7 @@ const roles = {
     builder: require('role.builder'),
     upgrader: require('role.upgrader'),
     carrier: require('role.carrier'),
+    miner: require('role.miner'),
 };
 const CreepExtension = {
     // 添加 work 方法
