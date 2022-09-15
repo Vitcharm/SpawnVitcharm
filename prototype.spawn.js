@@ -30,15 +30,6 @@ const SpawnExtension = {
         const spawnOk = this.mainSpawn(Memory.spawnList[0]);
         // console.log(`call spawn rst code: ${spawnOk}`);
         // console.log('spawn process END');
-        if (spawnOk === 0) {
-            let roleType = Memory.spawnList[0];
-            creepApi.add(roleType.configName, roleType.role,
-                roleType.targetSite);
-            console.log(
-                `Spawning new creep: ${roleType.role} ${roleType.configName}`);
-            Memory.creepNameCounter = Memory.creepNameCounter + 1;
-            console.log(`now counter is ${Memory.creepNameCounter}`);
-        }
     },
 
     addSpawnTask(roleType) {
@@ -59,9 +50,21 @@ const SpawnExtension = {
         }
         let spawnRet = this.spawnCreep(roleType.body, newName,
             {memory: {role: roleType.role, configName: roleType.configName}});
+
+        // update spawnList
         console.log(`spawn success, now size: ${Memory.spawnList.length}`);
         Memory.spawnList.shift();
         console.log(`update list, now size: ${Memory.spawnList.length}`);
+
+        // update creep config
+        creepApi.add(roleType.configName, roleType.role,
+            roleType.targetSite);
+        console.log(`Spawning new creep: ${roleType.role} ${roleType.configName}`);
+
+        // update counter
+        Memory.creepNameCounter = Memory.creepNameCounter + 1;
+        console.log(`now counter is ${Memory.creepNameCounter}`);
+
         return spawnRet;
     },
 
