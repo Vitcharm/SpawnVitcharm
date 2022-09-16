@@ -14,23 +14,15 @@ global.RoleTypeList = [
     {
         role: 'harvester',
         configName: 'har_Lv0_ALPHA',
-        size: 2,
+        size: 0,
         body: [WORK, CARRY, MOVE],
         cost: 200,
         targetSite: SITE_SOURCES[0],
     },
     {
-        role: 'harvester',
-        configName: 'har_Lv0_BETA',
-        size: 0,
-        body: [WORK, CARRY, MOVE],
-        cost: 200,
-        targetSite: SITE_SOURCES[1],
-    },
-    {
         role: 'upgrader',
         configName: 'upg_Lv0_ALPHA',
-        size: 1,
+        size: 2,
         body: [WORK, CARRY, MOVE],
         cost: 200,
         targetSite: SITE_CONTAINERS[0],
@@ -38,7 +30,7 @@ global.RoleTypeList = [
     {
         role: 'upgrader',
         body: [WORK, CARRY, MOVE],
-        size: 1,
+        size: 0,
         cost: 200,
         targetSite: baseSpawn.id,
         configName: 'upg_Lv0_BETA',
@@ -46,7 +38,7 @@ global.RoleTypeList = [
     {
         role: 'builder',
         configName: 'bui_Lv0_ALPHA',
-        size: 1,
+        size: 2,
         body: [WORK, CARRY, MOVE],
         cost: 200,
         targetSite: SITE_CONTAINERS[0],
@@ -54,7 +46,7 @@ global.RoleTypeList = [
     {
         role: 'builder',
         configName: 'bui_Lv0_BETA',
-        size: 2,
+        size: 0,
         body: [WORK, CARRY, MOVE],
         cost: 200,
         targetSite: baseSpawn.id,
@@ -65,7 +57,7 @@ global.RoleTypeList = [
         size: 1,
         body: [CARRY, CARRY, MOVE],
         cost: 150,
-        targetSite: baseSpawn.id,
+        targetSite: SITE_CONTAINERS[0],
     },
     {
         role: 'harvester',
@@ -78,7 +70,7 @@ global.RoleTypeList = [
     {
         role: 'upgrader',
         body: [WORK, CARRY, CARRY, MOVE, MOVE],
-        size: 1,
+        size: 0,
         cost: 250,
         targetSite: baseSpawn.id,
         configName: 'upg_Lv1_BETA',
