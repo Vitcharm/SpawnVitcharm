@@ -38,7 +38,7 @@ const SpawnExtension = {
                 isSomeOneDead = true;
             }
         }
-        if (Memory.spawnList.length === 0 || isSomeOneDead === true) {
+        if (Memory.spawnList.length === 0) {
             console.log(
                 `Check new spawn config...length [${Memory.spawnList.length}], someone dead?${isSomeOneDead}`);
             RoleTypeMap.forEach(function(typeValue) {
@@ -74,7 +74,7 @@ const SpawnExtension = {
             {memory: {role: roleType.role, configName: roleType.configName}},
             {dryRun: true});
         if (mockRet !== OK) {
-            console.log(`No launch spawning ${newName} ${roleType.configName} ${mockRet}`);
+            // console.log(`No launch spawning ${newName} ${roleType.configName} ${mockRet}`);
             if (mockRet === ERR_NAME_EXISTS) Memory.creepNameCounter++;
             return mockRet;
         }
