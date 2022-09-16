@@ -76,6 +76,14 @@ global.RoleTypeList = [
         cost: 300,
         targetSite: SITE_CONTAINERS[0],
     },
+    {
+        role: 'builder',
+        configName: 'bui_Lv1_BETA',
+        size: 1,
+        body: [WORK, CARRY, CARRY, MOVE, MOVE],
+        cost: 300,
+        targetSite: baseSpawn.id,
+    },
 ];
 global.RoleTypeMap = new Map();
 for (let i in RoleTypeList) {
