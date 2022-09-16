@@ -9,7 +9,7 @@ global.SITE_EXTENSIONS = [
     '63214c6f2f000b50fd7a75b7',
     '6321895cac9df4b501f31715'];
 global.SITE_STORAGE = ['1', '2'];
-global.REPAIR_RATIO = 0.9;
+global.REPAIR_RATIO = 0.90;
 global.RoleTypeList = [
     {
         role: 'harvester',
@@ -22,34 +22,19 @@ global.RoleTypeList = [
     {
         role: 'upgrader',
         configName: 'upg_Lv0_ALPHA',
-        size: 2,
+        size: 0,
         body: [WORK, CARRY, MOVE],
         cost: 200,
         targetSite: SITE_CONTAINERS[0],
     },
-    {
-        role: 'upgrader',
-        body: [WORK, CARRY, MOVE],
-        size: 0,
-        cost: 200,
-        targetSite: baseSpawn.id,
-        configName: 'upg_Lv0_BETA',
-    },
+
     {
         role: 'builder',
         configName: 'bui_Lv0_ALPHA',
-        size: 2,
-        body: [WORK, CARRY, MOVE],
-        cost: 200,
-        targetSite: SITE_CONTAINERS[0],
-    },
-    {
-        role: 'builder',
-        configName: 'bui_Lv0_BETA',
         size: 0,
         body: [WORK, CARRY, MOVE],
         cost: 200,
-        targetSite: baseSpawn.id,
+        targetSite: SITE_CONTAINERS[0],
     },
     {
         role: 'carrier',
@@ -60,9 +45,17 @@ global.RoleTypeList = [
         targetSite: SITE_CONTAINERS[0],
     },
     {
+        role: 'miner',
+        body: [WORK, WORK, WORK, MOVE, MOVE],
+        size: 1,
+        cost: 300,
+        targetSite: SITE_SOURCES[1],
+        configName: 'miner_LV0',
+    },
+    {
         role: 'harvester',
         configName: 'har_Lv1_ALPHA',
-        size: 2,
+        size: 3,
         body: [WORK, WORK, CARRY, MOVE, MOVE],
         cost: 350,
         targetSite: SITE_SOURCES[0],
@@ -70,19 +63,19 @@ global.RoleTypeList = [
     {
         role: 'upgrader',
         body: [WORK, CARRY, CARRY, MOVE, MOVE],
-        size: 0,
+        size: 2,
         cost: 250,
-        targetSite: baseSpawn.id,
+        targetSite: SITE_CONTAINERS[0],
         configName: 'upg_Lv1_BETA',
     },
     {
-        role: 'miner',
-        body: [WORK, WORK, MOVE, MOVE],
-        size: 1,
+        role: 'builder',
+        configName: 'bui_Lv1_ALPHA',
+        size: 2,
+        body: [WORK, CARRY, CARRY, MOVE, MOVE],
         cost: 300,
-        targetSite: SITE_SOURCES[1],
-        configName: 'miner_LV0',
-    }
+        targetSite: SITE_CONTAINERS[0],
+    },
 ];
 global.RoleTypeMap = new Map();
 for (let i in RoleTypeList) {
