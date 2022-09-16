@@ -9,6 +9,7 @@ const SpawnExtension = {
 
     runSpawnManager() {
         console.log('!!!running spawn manager!!!');
+
         if (!Memory.spawnList) baseSpawn.initSpawnTask(RoleTypeMap);
         baseSpawn.checkCreepSpawnList();
         let processRet = baseSpawn.processSpawnTask();
@@ -64,7 +65,6 @@ const SpawnExtension = {
 
     processSpawnTask() {
         if (Memory.spawnList.length === 0) {
-            console.log('spawn list length: ' + Memory.spawnList.length);
             return -10;
         }
         let roleType = Memory.spawnList[0];
@@ -74,7 +74,7 @@ const SpawnExtension = {
             {memory: {role: roleType.role, configName: roleType.configName}},
             {dryRun: true});
         if (mockRet !== OK) {
-            // console.log(`No launch spawning ${newName} ${roleType.configName} ${mockRet}`);
+            console.log(`No launch spawning ${newName} ${roleType.configName} ${mockRet}`);
             if (mockRet === ERR_NAME_EXISTS) Memory.creepNameCounter++;
             return mockRet;
         }

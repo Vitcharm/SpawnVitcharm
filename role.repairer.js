@@ -23,18 +23,24 @@ module.exports = sourceId => ({
     },
 
     performDuty: creep => {
-        function building() {
-            creep.say('🚧build');
-            var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-            if (targets.length) {
-                if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0],
-                        {visualizePathStyle: {stroke: '#ffffff'}});
+
+        function repairing() {
+            creep.say('🚧repair');
+            const targets = creep.room.find(FIND_STRUCTURES, {
+                filter: object => (object.hits < object.hitsMax * REPAIR_RATIO) && (object.hitsMax < 350000),
+            });
+            targets.sort((a, b) => a.hits - b.hits);
+            if (targets.length > 0) {
+                for (let i in targets) {
+                    // console.log('repairing ' + targets[i]);
+                    if (creep.repair(targets[i]) === ERR_NOT_IN_RANGE) {
+                        creep.moveTo(targets[i]);
+                    }
                 }
             }
         }
 
-        building(creep);
+        repairing(creep);
         return creep.store[RESOURCE_ENERGY] <= 0;
     },
 });
