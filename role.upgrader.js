@@ -8,19 +8,21 @@
  */
 module.exports = sourceId => ({
     takeSource: creep => {
-        const sourcePlaceObj = Game.getObjectById(sourceId);
-        // dummy method to distinguish source or store;
-        if (creep.harvest(sourcePlaceObj) !== ERR_INVALID_TARGET) {
-            creep.say('💰harvest');
-            if (creep.harvest(sourcePlaceObj) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(sourcePlaceObj,
-                    {visualizePathStyle: {stroke: '#ffaa00'}});
-            }
-        } else {
-            creep.say('💰take');
-            if (creep.withdraw(sourcePlaceObj, RESOURCE_ENERGY) ===
+        var targetContainers = creep.room.find(FIND_STRUCTURES, {
+            filter: (structure) => {
+                return (structure.structureType === STRUCTURE_CONTAINER)
+                    && (structure.store[RESOURCE_ENERGY] > 0);
+            },
+        });
+        targetContainers.sort(
+            (a, b) => b.store[RESOURCE_ENERGY] - a.store[RESOURCE_ENERGY]);
+        if (targetContainers.length > 0) {
+            let container = targetContainers[0];
+            creep.say(`💰take`);
+            console.log(`take from ${container}`);
+            if (creep.withdraw(container, RESOURCE_ENERGY) ===
                 ERR_NOT_IN_RANGE) {
-                creep.moveTo(sourcePlaceObj,
+                creep.moveTo(container,
                     {visualizePathStyle: {stroke: '#ffaa00'}});
             }
         }

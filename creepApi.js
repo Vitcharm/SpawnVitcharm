@@ -35,13 +35,18 @@ global.creepApi = {
         Game.spawns['Spawn'].spawnCreep([WORK, WORK, CARRY, MOVE, MOVE], 'haBak5',
             {memory: {role: 'harvester', configName: 'har_Lv1_ALPHA'}});
 
-        Game.spawns['Spawn'].spawnCreep([CARRY, CARRY, MOVE], 'caBak4',
+        Game.spawns['Spawn'].spawnCreep([CARRY, CARRY, MOVE], 'caBak10',
             {memory: {role: 'carrier', configName: 'car_Lv0'}});
 
         Game.spawns['Spawn'].spawnCreep([WORK, CARRY, MOVE], 'haBak5',
             {memory: {role: 'harvester', configName: 'har_Lv0_ALPHA'}});
 
-        Game.spawns['Spawn'].spawnCreep([WORK, CARRY, MOVE], 'blBak7',
+        Game.spawns['Spawn'].spawnCreep([WORK, CARRY, MOVE], 'blBak9',
             {memory: {role: 'builder', configName: 'bui_Lv0_ALPHA'}});
+
+        Game.spawns['Spawn'].spawnCreep([WORK, CARRY, MOVE], 'repairer1',
+            {memory: {role: 'repairer', configName: 'repairer_LV0'}});
+        Game.spawns['Spawn'].spawnCreep([WORK, WORK, MOVE, MOVE], 'miner2',
+            {memory: {role: 'miner', configName: 'miner_LV0'}});
     },
 };
