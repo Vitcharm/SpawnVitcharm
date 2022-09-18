@@ -31,7 +31,7 @@ global.RoleTypeList = [
     {
         role: 'carrier',
         configName: 'car_Lv0',
-        size: 2,
+        size: 4,
         body: [CARRY, CARRY, MOVE],
         cost: 150,
         targetSite: SITE_CONTAINERS,
@@ -79,7 +79,7 @@ global.RoleTypeList = [
     {
         role: 'builder',
         configName: 'bui_Lv1_BETA',
-        size: 3,
+        size: 1,
         body: [WORK, CARRY, CARRY, MOVE, MOVE],
         cost: 300,
         targetSite: SITE_CONTAINERS[3],
