@@ -11,7 +11,8 @@ const SpawnExtension = {
         console.log('!!!running spawn manager!!!');
 
         if (!Memory.spawnList) baseSpawn.initSpawnTask(RoleTypeMap);
-        baseSpawn.checkCreepSpawnList();
+        baseSpawn.checkDeadCreeps();
+        baseSpawn.updateCreepSpawnList();
         let processRet = baseSpawn.processSpawnTask();
         console.log(`process Spawn Task rst:${processRet}`);
         baseSpawn.vizSpawning();
@@ -29,19 +30,18 @@ const SpawnExtension = {
         console.log('Init done, spawnList size:', Memory.spawnList.length);
     },
 
-    checkCreepSpawnList() {
-        let isSomeOneDead = false;
+    checkDeadCreeps() {
         for (const curName in Memory.creeps) {
             if (!Game.creeps[curName]) {
                 console.log(
                     `${curName} has come to its end, deleting memory...`);
                 delete Memory.creeps[curName];
-                isSomeOneDead = true;
             }
         }
+    },
+
+    updateCreepSpawnList() {
         if (Memory.spawnList.length === 0) {
-            console.log(
-                `Check new spawn config...length [${Memory.spawnList.length}], someone dead?${isSomeOneDead}`);
             RoleTypeMap.forEach(function(typeValue) {
                 let creepsInType = _.filter(Game.creeps,
                     (creep) => creep.memory.configName ===
@@ -64,11 +64,11 @@ const SpawnExtension = {
     },
 
     processSpawnTask() {
-        if (Memory.spawnList.length === 0) {
+        if (Memory.spawnList.length === 0 || this.spawning) {
             return -10;
         }
-        let roleType = Memory.spawnList[0];
         if (!Memory.creepNameCounter) Memory.creepNameCounter = 0;
+        let roleType = Memory.spawnList[0];
         let newName = roleType.role + Memory.creepNameCounter;
         let mockRet = this.spawnCreep(roleType.body, newName,
             {memory: {role: roleType.role, configName: roleType.configName}},
@@ -87,7 +87,6 @@ const SpawnExtension = {
         creepApi.add(roleType.configName, roleType.role, roleType.targetSite);
         // update counter
         Memory.creepNameCounter = Memory.creepNameCounter + 1;
-
         return spawnRet;
     },
 

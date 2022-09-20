@@ -4,11 +4,10 @@ module.exports = sourceId => ({
         var targetContainers = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
                 return (structure.structureType === STRUCTURE_CONTAINER)
-                        && (structure.store[RESOURCE_ENERGY] > 0);
+                        && (structure.store[RESOURCE_ENERGY] > creep.store.getCapacity());
             },
         });
-        targetContainers.sort(
-            (a, b) => b.store[RESOURCE_ENERGY] - a.store[RESOURCE_ENERGY]);
+        // targetContainers.sort((a, b) => b.store[RESOURCE_ENERGY] - a.store[RESOURCE_ENERGY]);
         if (targetContainers.length > 0) {
             let container = targetContainers[0];
             creep.say(`💰take`);
