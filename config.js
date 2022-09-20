@@ -55,7 +55,7 @@ global.RoleTypeList = [
     {
         role: 'repairer',
         body: [WORK, CARRY, MOVE],
-        size: 2,
+        size: 0,
         cost: 200,
         targetSite: SITE_CONTAINERS[3],
         configName: 'repairer_LV0',
@@ -71,8 +71,8 @@ global.RoleTypeList = [
     {
         role: 'builder',
         configName: 'bui_Lv1_ALPHA',
-        size: 0,
-        body: [WORK, CARRY, CARRY, MOVE, MOVE],
+        size: 5,
+        body: [WORK, WORK, CARRY, CARRY, MOVE, MOVE],
         cost: 300,
         targetSite: SITE_CONTAINERS[3],
     },

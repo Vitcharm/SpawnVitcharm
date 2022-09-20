@@ -33,9 +33,8 @@ module.exports = sourceId => ({
         });
         creep.say('🔄 deliver');
         targets.sort(
-            (a, b) => b.store.getFreeCapacity(RESOURCE_ENERGY) - a.store.getFreeCapacity(RESOURCE_ENERGY));
+            (a, b) => b.store.getCapacity(RESOURCE_ENERGY) - a.store.getCapacity(RESOURCE_ENERGY));
         if (targets.length > 0) {
-
             console.log(`delivering ${targets[0]}`);
             var transRet = creep.transfer(targets[0], RESOURCE_ENERGY);
             if (transRet === ERR_NOT_IN_RANGE) {
