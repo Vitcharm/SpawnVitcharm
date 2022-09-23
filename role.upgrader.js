@@ -8,15 +8,16 @@
  */
 module.exports = sourceId => ({
     takeSource: creep => {
-        var targetContainers = creep.room.find(FIND_STRUCTURES, {
+        var targetResourceCenters = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
-                return (structure.structureType === STRUCTURE_CONTAINER)
+                return (structure.structureType === STRUCTURE_STORAGE)
+                    || (structure.structureType === STRUCTURE_CONTAINER)
                     && (structure.store[RESOURCE_ENERGY] > creep.store.getCapacity());
             },
         });
-        targetContainers.sort((a, b) => b.store[RESOURCE_ENERGY] - a.store[RESOURCE_ENERGY]);
-        if (targetContainers.length > 0) {
-            let container = targetContainers[0];
+        targetResourceCenters.sort((a, b) => a.store[RESOURCE_ENERGY] - b.store[RESOURCE_ENERGY]);
+        if (targetResourceCenters.length > 0) {
+            let container = targetResourceCenters[0];
             creep.say(`💰take`);
             console.log(`take from ${container}`);
             if (creep.withdraw(container, RESOURCE_ENERGY) ===
