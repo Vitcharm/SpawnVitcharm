@@ -14,6 +14,10 @@ module.exports.loop = function() {
     for (let i in targets) {
         tower.repair(targets[i]);
     }
+    var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    if(closestHostile) {
+        tower.attack(closestHostile);
+    }
 
     /** Creep number manager system v2.0 **/
     baseSpawn.runSpawnManager();

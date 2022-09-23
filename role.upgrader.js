@@ -14,6 +14,7 @@ module.exports = sourceId => ({
                     && (structure.store[RESOURCE_ENERGY] > creep.store.getCapacity());
             },
         });
+        targetContainers.sort((a, b) => b.store[RESOURCE_ENERGY] - a.store[RESOURCE_ENERGY]);
         if (targetContainers.length > 0) {
             let container = targetContainers[0];
             creep.say(`💰take`);
