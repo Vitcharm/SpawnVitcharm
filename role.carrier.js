@@ -4,10 +4,12 @@ module.exports = sourceId => ({
         var targetContainers = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
                 return (structure.structureType === STRUCTURE_CONTAINER)
-                        && (structure.store[RESOURCE_ENERGY] > creep.store.getCapacity());
+                    && (structure.store[RESOURCE_ENERGY] >
+                        creep.store.getCapacity());
             },
         });
-        // targetContainers.sort((a, b) => b.store[RESOURCE_ENERGY] - a.store[RESOURCE_ENERGY]);
+        targetContainers.sort(
+            (a, b) => b.store[RESOURCE_ENERGY] - a.store[RESOURCE_ENERGY]);
         if (targetContainers.length > 0) {
             let container = targetContainers[0];
             creep.say(`💰take`);
@@ -19,7 +21,6 @@ module.exports = sourceId => ({
             }
         }
         return creep.store.getFreeCapacity() <= 0;
-
     },
 
     performDuty: creep => {
@@ -32,10 +33,12 @@ module.exports = sourceId => ({
             },
         });
         creep.say('🔄 deliver');
-        targets.sort(
-            (a, b) => b.store.getFreeCapacity(RESOURCE_ENERGY) - a.store.getFreeCapacity(RESOURCE_ENERGY));
-        if (targets.length > 0) {
 
+        targets.sort(
+            (a, b) => b.store.getFreeCapacity(RESOURCE_ENERGY) -
+                a.store.getFreeCapacity(RESOURCE_ENERGY));
+        console.log(targets[0]);
+        if (targets.length > 0) {
             console.log(`delivering ${targets[0]}`);
             var transRet = creep.transfer(targets[0], RESOURCE_ENERGY);
             if (transRet === ERR_NOT_IN_RANGE) {
@@ -43,6 +46,6 @@ module.exports = sourceId => ({
                     {visualizePathStyle: {stroke: '#ffffff'}});
             }
         }
-        return (creep.store[RESOURCE_ENERGY] <= 0 || transRet === OK);
+        return (creep.store[RESOURCE_ENERGY] <= 0);
     },
 });
