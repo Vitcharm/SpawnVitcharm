@@ -11,7 +11,6 @@ module.exports = sourceId => ({
         var targetResourceCenters = creep.room.find(FIND_STRUCTURES, {
             filter: (structure) => {
                 return (structure.structureType === STRUCTURE_STORAGE)
-                    || (structure.structureType === STRUCTURE_CONTAINER)
                     && (structure.store[RESOURCE_ENERGY] > creep.store.getCapacity());
             },
         });
@@ -19,7 +18,7 @@ module.exports = sourceId => ({
         if (targetResourceCenters.length > 0) {
             let container = targetResourceCenters[0];
             creep.say(`💰take`);
-            console.log(`take from ${container}`);
+            console.log(`upg take from ${container}`);
             if (creep.withdraw(container, RESOURCE_ENERGY) ===
                 ERR_NOT_IN_RANGE) {
                 creep.moveTo(container,

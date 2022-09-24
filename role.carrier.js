@@ -13,7 +13,7 @@ module.exports = sourceId => ({
         if (targetContainers.length > 0) {
             let container = targetContainers[0];
             creep.say(`💰take`);
-            console.log(`take from ${container}`);
+            console.log(`car take from ${container}`);
             if (creep.withdraw(container, RESOURCE_ENERGY) ===
                 ERR_NOT_IN_RANGE) {
                 creep.moveTo(container,
@@ -39,7 +39,7 @@ module.exports = sourceId => ({
                 a.store.getFreeCapacity(RESOURCE_ENERGY));
         console.log(targets[0].store.getFreeCapacity(RESOURCE_ENERGY));
         if (targets.length > 0 && targets[0].store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
-            console.log(`delivering ${targets[0]}`);
+            console.log(`car delivering ${targets[0]}`);
             if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(targets[0],
                     {visualizePathStyle: {stroke: '#ffffff'}});
@@ -51,7 +51,7 @@ module.exports = sourceId => ({
                         && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
                 },
             });
-            console.log(`delivering ${tarStorage[0]}`);
+            console.log(`car delivering ${tarStorage[0]}`);
             if (creep.transfer(tarStorage[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(tarStorage[0],
                     {visualizePathStyle: {stroke: '#ffffff'}});
